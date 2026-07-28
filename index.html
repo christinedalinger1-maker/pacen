@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savage Pacing</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
+            --accent-color: #2b6cb0;
+            --accent-hover: #2c5282;
+            --danger-color: #e53e3e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        /* Schlanke Symptom-Liste ohne Scrollbar */
+        .symptom-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .symptom-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .symptom-row:last-child {
+            border-bottom: none;
+        }
+
+        .symptom-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .symptom-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .symptom-inputs label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        input[type="number"], select, input[type="text"] {
+            background-color: #fff;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 0.9rem;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        .history-table th, .history-table td {
+            border: 1px solid var(--border-color);
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .history-table th {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Savage Pacing Tracker</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Erfasse deine täglichen Symptome und Werte im hellen Überblick.</p>
+        </div>
+
+        <div class="card">
+            <h3>Symptom-Erfassung</h3>
+            <div class="symptom-group" id="symptomContainer">
+                <!-- Schlanke Zeilen werden hier dynamisch eingefügt -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const symptoms = [
+            "Müdigkeit / Fatigue",
+            "Belastungsintoleranz (PEM)",
+            "Kopfschmerzen",
+            "Gehirnebel / Konzentration",
+            "Schlafqualität",
+            "Schmerzen",
+            "Herzklopfen / POTS"
+        ];
+
+        const container = document.getElementById('symptomContainer');
+
+        symptoms.forEach((symptom, index) => {
+            const row = document.createElement('div');
+            row.className = 'symptom-row';
+            row.innerHTML = `
+                <span class="symptom-label">${symptom}</span>
+                <div class="symptom-inputs">
+                    <label><input type="radio" name="symp_${index}" value="0" checked> Leicht</label>
+                    <label><input type="radio" name="symp_${index}" value="1"> Mittel</label>
+                    <label><input type="radio" name="symp_${index}" value="2"> Stark</label>
+                </div>
+            `;
+            container.appendChild(row);
+        });
+    </script>
+</body>
+</html>
